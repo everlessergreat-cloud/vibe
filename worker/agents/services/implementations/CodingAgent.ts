@@ -1,5 +1,5 @@
 import { ProcessedImageAttachment } from "worker/types/image-attachment";
-import { Blueprint, FileConceptType } from "worker/agents/schemas";
+import { Blueprint, FileConceptType, FileOutputType } from "worker/agents/schemas";
 import { ExecuteCommandsResponse, StaticAnalysisResponse, RuntimeError } from "worker/services/sandbox/sandboxTypes";
 import { ICodingAgent } from "../interfaces/ICodingAgent";
 import { OperationOptions } from "worker/agents/operations/common";
@@ -119,5 +119,28 @@ export class CodingAgentInterface {
         focusPaths?: string[]
     ): Promise<DeepDebugResult> {
         return this.agentStub.executeDeepDebug(issue, toolRenderer, streamCb, focusPaths);
+    }
+
+    getOrganizableFilePaths(): Promise<string[]> {
+        const fm = this.agentStub.getFileManager();
+        return Promise.resolve(fm.getGeneratedFilePaths());
+    }
+
+    async saveOrganizedFiles(
+        files: FileOutputType[],
+        deletePaths: string[],
+    ): Promise<void> {
+        const fm = this.agentStub.getFileManager();
+        if (deletePaths.length > 0) {
+            fm.deleteFiles(deletePaths);
+        }
+        if (files.length > 0) {
+            await fm.saveGeneratedFiles(files, 'refactor: reorganize project files');
+        }
+    }
+
+    async deleteOrganizedFiles(paths: string[]): Promise<void> {
+        const fm = this.agentStub.getFileManager();
+        fm.deleteFiles(paths);
     }
 }

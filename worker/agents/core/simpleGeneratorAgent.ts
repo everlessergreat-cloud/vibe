@@ -1668,6 +1668,10 @@ export class SimpleCodeGeneratorAgent extends Agent<Env, CodeGenState> {
         return updated;
     }
 
+    getFileManager(): FileManager {
+        return this.fileManager;
+    }
+
     // ===== Debugging helpers for assistants =====
     async readFiles(paths: string[]): Promise<{ files: { path: string; content: string }[] }> {
         const { sandboxInstanceId } = this.state;

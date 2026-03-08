@@ -7,6 +7,7 @@ import { DeepDebugResult } from "worker/agents/core/types";
 import { RenderToolCall } from "worker/agents/operations/UserConversationProcessor";
 import { WebSocketMessageType, WebSocketMessageData } from "worker/api/websocketTypes";
 import { GitVersionControl } from "worker/agents/git/git";
+import { IFileManager } from "./IFileManager";
 
 export abstract class ICodingAgent {
     abstract getSandboxServiceClient(): BaseSandboxService;
@@ -62,4 +63,6 @@ export abstract class ICodingAgent {
         streamCb: (chunk: string) => void,
         focusPaths?: string[],
     ): Promise<DeepDebugResult>;
+
+    abstract getFileManager(): IFileManager;
 }
