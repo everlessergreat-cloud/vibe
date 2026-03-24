@@ -11,6 +11,7 @@ import {
 	Bookmark,
 	// LayoutGrid,
 	Compass,
+	Smartphone,
 } from 'lucide-react';
 import './sidebar-overrides.css';
 import { useRecentApps, useFavoriteApps, useApps } from '@/hooks/use-apps';
@@ -581,6 +582,20 @@ export function AppSidebar() {
 									{!isCollapsed && (
 										<span className="text-text-primary/80 font-medium group-hover:text-primary transition-colors">
 											Discover
+										</span>
+									)}
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+							<SidebarMenuItem>
+								<SidebarMenuButton
+									onClick={() => navigate('/vnc')}
+									tooltip="Phone Control"
+									className="group hover:opacity-80 hover:cursor-pointer hover:bg-bg-1/50 transition-all duration-200"
+								>
+									<Smartphone className="h-6 w-6 text-text-primary/60 group-hover:text-primary/80 transition-colors" />
+									{!isCollapsed && (
+										<span className="text-text-primary/80 font-medium group-hover:text-primary transition-colors">
+											Phone Control
 										</span>
 									)}
 								</SidebarMenuButton>
